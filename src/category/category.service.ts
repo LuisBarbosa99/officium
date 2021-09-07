@@ -16,12 +16,12 @@ export class CategoryService {
     await this.categoryRepository.save(category);
   }
 
-  findAll() {
-    return `This action returns all category`;
+  async findAll(): Promise<Category[]> {
+    return await this.categoryRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  async findOne(id: string):Promise<Category> {
+    return await this.categoryRepository.findOneByType(CategoryType[id]);
   }
 
   update(id: number, updateCategoryDto: UpdateCategoryDto) {

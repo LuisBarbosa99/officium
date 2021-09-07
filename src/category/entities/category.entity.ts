@@ -1,8 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { Type } from '../enums/type';
-
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
-export class Category {
+export class Category extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -10,5 +8,5 @@ export class Category {
   name: string;
 
   @Column('int', { name: 'cat_type' })
-  type: Type;
+  type: number;
 }

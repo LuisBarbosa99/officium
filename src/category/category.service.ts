@@ -1,11 +1,19 @@
 import { Injectable } from '@nestjs/common';
+import { from } from 'rxjs';
+import { CategoryRepository } from './category.repository';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-
+import { Category } from './entities/category.entity';
+import { CategoryType } from './enums/category-type';
 @Injectable()
 export class CategoryService {
-  create(createCategoryDto: CreateCategoryDto) {
-    return 'This action adds a new category';
+  constructor(private categoryRepository: CategoryRepository){}
+  async create(createCategoryDto: CreateCategoryDto): Promise<void> {
+    var category = Category.create();
+    category.name = createCategoryDto.name;
+    category.type = CategoryType[createCategoryDto.type];
+
+    await this.categoryRepository.save(category);
   }
 
   findAll() {

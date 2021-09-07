@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Service } from 'src/service/entities/service.entity';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Category extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -9,4 +10,7 @@ export class Category extends BaseEntity {
 
   @Column('int', { name: 'cat_type' })
   type: number;
+
+  @OneToMany(()=> Service, service => service.category)
+  services: Service[];
 }

@@ -1,5 +1,6 @@
 import { Repository, EntityRepository } from 'typeorm';
 import {
+  BadRequestException,
   ConflictException,
   InternalServerErrorException,
 } from '@nestjs/common';
@@ -21,6 +22,11 @@ export class UserRepository extends Repository<User> {
     user.salt = salt;
     user.password = await this.hashPassword(password, user.salt);
     user.type = authCredentialsDto.type;
+
+    if (user.type == 0 && authCredentialsDto.phone) {
+      throw new BadRequestException(authCredentialsDto.phone,'O telefone não é um atributo válido para usuários desse tipo.');
+    }
+    user.phone = authCredentialsDto.phone;
 
     try {
       await user.save();

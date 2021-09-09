@@ -26,5 +26,7 @@ import {
 
     @IsNotEmpty()
     type: number;
+
+    phone: string;
   }
   

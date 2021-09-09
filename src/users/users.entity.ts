@@ -28,6 +28,9 @@ import {
 
     @Column()
     type: number;
+
+    @Column()
+    phone: string;
   
     async validatePassword(password: string): Promise<boolean> {
       const hash = await bcrypt.hash(password, this.salt);

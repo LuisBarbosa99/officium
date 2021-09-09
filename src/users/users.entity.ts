@@ -15,6 +15,9 @@ import {
     id: number;
   
     @Column()
+    name: string;
+
+    @Column()
     email: string;
   
     @Column()
@@ -22,6 +25,9 @@ import {
   
     @Column()
     salt: string;
+
+    @Column()
+    type: number;
   
     async validatePassword(password: string): Promise<boolean> {
       const hash = await bcrypt.hash(password, this.salt);

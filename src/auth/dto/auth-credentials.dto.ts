@@ -9,6 +9,9 @@ import {
   
   export class AuthCredentialsDto {
     @IsNotEmpty()
+    name: string;
+
+    @IsNotEmpty()
     @IsEmail()
     email: string;
   
@@ -20,5 +23,8 @@ import {
       message: 'Sua senha é muito fraca',
     })
     password: string;
+
+    @IsNotEmpty()
+    type: number;
   }
   

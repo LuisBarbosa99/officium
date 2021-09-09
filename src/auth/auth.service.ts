@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from 'src/users/users.repository';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+import { SignInDTO } from './dto/sign-in.dto';
 import { JwtPayload } from './jwt-payload.interface';
 
 @Injectable()
@@ -13,25 +14,29 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
+  signUp(authCredentialsDto: AuthCredentialsDto): Promise<{type: number}> {
     return this.userRepository.signUp(authCredentialsDto);
   }
 
   async singIn(
     authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{ accessToken: string }> {
-    const id = await this.userRepository.validateUserPassword(
+  ): Promise<SignInDTO> {
+    const user = await this.userRepository.validateUserPassword(
       authCredentialsDto,
     );
 
-    if (!id) {
+    if (!user) {
       throw new UnauthorizedException('Credenciais inválidas');
     }
 
-    const payload: JwtPayload = { id };
+    const payload: JwtPayload = { id: user.id };
 
     const accessToken = this.jwtService.sign(payload);
 
-    return { accessToken };
+    var dto = new SignInDTO;
+    dto.accessToken = accessToken;
+    dto.type = user.type;
+
+    return dto;
   }
 }

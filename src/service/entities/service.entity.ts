@@ -1,4 +1,5 @@
 import { Category } from "src/category/entities/category.entity";
+import { User } from "src/users/users.entity";
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -19,5 +20,9 @@ export class Service {
     @ManyToOne(() => Category, category => category.services)
     @JoinColumn({ name: "ser_category" })
     category: Category;
+
+    @ManyToOne(() => User, category => category.services)
+    @JoinColumn({ name: "ser_user" })
+    provider: User;
 
 }

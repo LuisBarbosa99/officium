@@ -13,4 +13,6 @@ export class CreateServiceDto {
     @IsNotEmpty()
     categoryType: string;
 
+    @IsNotEmpty()
+    userId: number;
 }

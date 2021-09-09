@@ -19,6 +19,8 @@ export class ServiceService {
   async create(model: CreateServiceDto): Promise<void> {
     var provider = await this.userRepository.findOne(model.userId);
 
+    console.log('provider', provider);
+    
     if (!provider) {
       throw new NotFoundException("Provedor de serviços não encontrado");
     }
@@ -49,6 +51,7 @@ export class ServiceService {
     serviceProvider.name = user.name;
     serviceProvider.email = user.email;
     serviceProvider.type = user.type;
+    serviceProvider.phone = user.phone;
 
     var dto = new ServiceDTO();
     dto.title = service.title;

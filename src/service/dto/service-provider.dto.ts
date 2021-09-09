@@ -6,4 +6,6 @@ export class ServiceProviderDTO {
 
     type: number;
 
+    phone: string;
+
 }

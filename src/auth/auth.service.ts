@@ -37,6 +37,7 @@ export class AuthService {
     var dto = new SignInResponseDTO;
     dto.accessToken = accessToken;
     dto.type = user.type;
+    dto.id = user.id;
 
     return dto;
   }

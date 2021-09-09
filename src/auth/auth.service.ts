@@ -3,7 +3,8 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from 'src/users/users.repository';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
-import { SignInDTO } from './dto/sign-in.dto';
+import { SignInResponseDTO } from './dto/sign-in-response.dto';
+import { SignInForm } from './dto/sign-in.form';
 import { JwtPayload } from './jwt-payload.interface';
 
 @Injectable()
@@ -19,10 +20,10 @@ export class AuthService {
   }
 
   async singIn(
-    authCredentialsDto: AuthCredentialsDto,
-  ): Promise<SignInDTO> {
+    form: SignInForm,
+  ): Promise<SignInResponseDTO> {
     const user = await this.userRepository.validateUserPassword(
-      authCredentialsDto,
+      form,
     );
 
     if (!user) {
@@ -33,7 +34,7 @@ export class AuthService {
 
     const accessToken = this.jwtService.sign(payload);
 
-    var dto = new SignInDTO;
+    var dto = new SignInResponseDTO;
     dto.accessToken = accessToken;
     dto.type = user.type;
 

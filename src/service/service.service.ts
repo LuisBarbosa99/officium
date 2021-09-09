@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CategoryRepository } from 'src/category/category.repository';
 import { CategoryType } from 'src/category/enums/category-type';
 import { UserRepository } from 'src/users/users.repository';
@@ -18,6 +18,10 @@ export class ServiceService {
     private serviceRepository: ServiceRepository){}
   async create(model: CreateServiceDto): Promise<void> {
     var provider = await this.userRepository.findOne(model.userId);
+
+    if (!provider) {
+      throw new NotFoundException("Provedor de serviços não encontrado");
+    }
 
     var service = new Service();
     service.title = model.title;

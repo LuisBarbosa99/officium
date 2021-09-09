@@ -34,7 +34,11 @@ export class ServiceService {
   }
 
   async findAll(filter: FilterServiceDTO): Promise<Service[]> {
-    return this.serviceRepository.findByFilter(filter);
+    return await this.serviceRepository.findByFilter(filter);
+  }
+
+  async findAllByProvider(id: number): Promise<Service[]> {
+    return await this.serviceRepository.findByProviderId(id);
   }
 
   async findOne(id: number): Promise<ServiceDTO> {

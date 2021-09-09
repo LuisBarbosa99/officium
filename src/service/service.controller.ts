@@ -20,6 +20,11 @@ export class ServiceController {
     return this.serviceService.findAll(form);
   }
 
+  @Get('/provider/:id')
+  list(@Param('id') id: string): Promise<Service[]> {
+    return this.serviceService.findAllByProvider(+id);
+  }
+
   @Get('/:id')
   async findOne(@Param('id') id: string): Promise<ServiceDTO> {
     return await this.serviceService.findOne(+id);

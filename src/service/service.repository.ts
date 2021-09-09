@@ -20,4 +20,14 @@ export class ServiceRepository extends Repository<Service> {
         }
         return where.getMany();
     }
+
+    async findByProviderId(id: number): Promise<Service[]> {
+        return await getConnection()
+        .createQueryBuilder()
+        .select("service")
+        .from(Service, "service")
+        .where("service.provider = :id")
+        .setParameters({"id": id})
+        .getMany();
+    }
 }

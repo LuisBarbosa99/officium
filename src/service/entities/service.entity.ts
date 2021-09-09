@@ -21,7 +21,7 @@ export class Service {
     @JoinColumn({ name: "ser_category" })
     category: Category;
 
-    @ManyToOne(() => User, category => category.services)
+    @ManyToOne(() => User, user => user.services)
     @JoinColumn({ name: "ser_user" })
     provider: User;
 

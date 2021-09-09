@@ -1,7 +1,8 @@
 import { Body, Controller, Post, UsePipes, ValidationPipe } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthCredentialsDto } from "./dto/auth-credentials.dto";
-import { SignInDTO } from "./dto/sign-in.dto";
+import { SignInResponseDTO } from "./dto/sign-in-response.dto";
+import { SignInForm } from "./dto/sign-in.form";
 
 @Controller('auth')
 export class AuthController {
@@ -14,9 +15,10 @@ export class AuthController {
   }
 
   @Post('/signin')
+  @UsePipes(ValidationPipe)
   signIn(
-    @Body() authCredetialsDto: AuthCredentialsDto,
-  ): Promise<SignInDTO> {
-    return this.authService.singIn(authCredetialsDto);
+    @Body() form: SignInForm,
+  ): Promise<SignInResponseDTO> {
+    return this.authService.singIn(form);
   }
 }

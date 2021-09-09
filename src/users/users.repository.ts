@@ -6,6 +6,7 @@ import {
 import * as bcrypt from 'bcryptjs';
 import { User } from './users.entity';
 import { AuthCredentialsDto } from 'src/auth/dto/auth-credentials.dto';
+import { SignInForm } from 'src/auth/dto/sign-in.form';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
@@ -32,9 +33,9 @@ export class UserRepository extends Repository<User> {
   }
 
   async validateUserPassword(
-    authCredentialsDto: AuthCredentialsDto,
+    form: SignInForm,
   ): Promise<User> {
-    const { email, password } = authCredentialsDto;
+    const { email, password } = form;
     const user = await this.findOne({ email });
 
     if (user && (await user.validatePassword(password))) {

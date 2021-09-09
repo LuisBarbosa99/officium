@@ -1,4 +1,4 @@
-export class SignInDTO {
+export class SignInResponseDTO {
     
     accessToken: string;
 

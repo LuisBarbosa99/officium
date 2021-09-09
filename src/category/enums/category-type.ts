@@ -1,5 +1,5 @@
 export enum CategoryType {
-  TI,
+  TI = 1,
   CLEANING,
   ELETRIC,
   CONSTRUCTION,

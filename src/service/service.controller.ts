@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ServiceService } from './service.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
+import { FilterServiceDTO } from './dto/filter-service.dto';
+import { Service } from './entities/service.entity';
 
 @Controller('service')
 export class ServiceController {
@@ -13,8 +15,8 @@ export class ServiceController {
   }
 
   @Get()
-  findAll() {
-    return this.serviceService.findAll();
+  findAll(@Query() form : FilterServiceDTO): Promise<Service[]> {
+    return this.serviceService.findAll(form);
   }
 
   @Get(':id')

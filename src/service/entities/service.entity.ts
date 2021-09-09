@@ -19,7 +19,5 @@ export class Service {
     @ManyToOne(() => Category, category => category.services)
     @JoinColumn({ name: "ser_category" })
     category: Category;
-  
-    @Column('int', {name: 'ser_photo', nullable: true})
-    photo: string;
+
 }

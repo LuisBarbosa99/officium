@@ -10,9 +10,9 @@ export class CategoryService {
   constructor(private categoryRepository: CategoryRepository){}
   async create(createCategoryDto: CreateCategoryDto): Promise<void> {
     var category = Category.create();
+    category.id = CategoryType[createCategoryDto.type];
     category.name = createCategoryDto.name;
-    category.type = CategoryType[createCategoryDto.type];
-
+    
     await this.categoryRepository.save(category);
   }
 
